@@ -5,32 +5,26 @@ services:
     build: './apache'
     restart: always
     ports:
-      - 80:80
+      - 8080:80
       - 443:443
-    networks:
-      - frontend
-      - backend 
     volumes:
       - ./public_html:/usr/local/apache2/htdocs
       - ./cert/:/usr/local/apache2/cert/
     depends_on:
       - php
-      - mysql
+      - devmysql
   php:
     build: './php'
     restart: always
-    networks:
-      - backend
     volumes:
       - ./public_html:/usr/local/apache2/htdocs
       - ./tmp:/usr/local/tmp
-  mysql:
+  devmysql:
     build: './mysql'
     restart: always
-    networks:
-      - backend
+    ports:
+      - 9906:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: test1234
     volumes:
       - ./database:/var/lib/mysql
-networks:
-  backend:
-  frontend:
