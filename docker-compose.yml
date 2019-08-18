@@ -5,7 +5,7 @@ services:
     build: './apache'
     restart: always
     ports:
-      - 8080:80
+      - 80:80
       - 443:443
     volumes:
       - ./volumes/public_html:/usr/local/apache2/htdocs
@@ -39,6 +39,7 @@ services:
     ports:
       - 8500:8500
     volumes:
-      - ./volumes/coldfusion_root:/app
+      - ./volumes/public_html:/app
+#     - ./volumes/coldfusion_root:/app
     env_file:
       - ./coldfusion/coldfusion.env

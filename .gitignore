@@ -1,3 +1,5 @@
 volumes/database
-volumes/coldfusion_root/WEB-INF
-volumes/coldfusion_root/crossdomain.xml
+volumes/public_html/WEB-INF
+volumes/public_html/crossdomain.xml
+volumes/public_html/uploads/*
+!volumes/public_html/uploads/FILE_UPLOADS_HERE

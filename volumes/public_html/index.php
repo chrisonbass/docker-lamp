@@ -7,6 +7,10 @@ use app\db\Query;
 use app\db\Insert;
 use app\util\Setup;
 
+if ( !extension_loaded('imagick') ) {
+  echo 'imagick not installed';
+}
+
 try {
   Setup::createDatabase();
   $insert = new Insert();
@@ -25,9 +29,14 @@ try {
         ->from("app_settings")
         ->all();
 
+  if ( !file_exists(__DIR__ . "/uploads") ){
+    mkdir(__DIR__ . "/uploads");
+  }
+  file_put_contents(__DIR__ . "/uploads/test.txt", "This is a test");
   echo "<pre>";
   print_r("New Row Id: " . $rowId . "\n");
-  print_r($str);
+  print_r($str . "\n");
+  print_r(file_get_contents(__DIR__ . "/uploads/test.txt") . "\n" );
   echo "</pre>";
   exit;
 } catch ( Exception $e ){
