@@ -1,1 +1,3 @@
-database
+volumes/database
+volumes/coldfusion_root/WEB-INF
+volumes/coldfusion_root/crossdomain.xml

@@ -8,17 +8,20 @@ services:
       - 8080:80
       - 443:443
     volumes:
-      - ./public_html:/usr/local/apache2/htdocs
-      - ./cert/:/usr/local/apache2/cert/
+      - ./volumes/public_html:/usr/local/apache2/htdocs
+      - ./volumes/cert:/usr/local/apache2/cert
     depends_on:
       - php
       - devmysql
+      - coldfusion
+
   php:
     build: './php'
     restart: always
     volumes:
-      - ./public_html:/usr/local/apache2/htdocs
-      - ./tmp:/usr/local/tmp
+      - ./volumes/public_html:/usr/local/apache2/htdocs
+      - ./volumes/tmp:/usr/local/tmp
+
   devmysql:
     build: './mysql'
     restart: always
@@ -26,5 +29,16 @@ services:
       - 9906:3306
     environment:
       MYSQL_ROOT_PASSWORD: test1234
+      MYSQL_DATABASE: test_db
     volumes:
-      - ./database:/var/lib/mysql
+      - ./volumes/database:/var/lib/mysql
+
+  coldfusion:
+    build: './coldfusion'
+    restart: always
+    ports:
+      - 8500:8500
+    volumes:
+      - ./volumes/coldfusion_root:/app
+    env_file:
+      - ./coldfusion/coldfusion.env
