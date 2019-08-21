@@ -33,4 +33,6 @@ RUN set -xe \
         && docker-php-ext-enable xdebug \
         && docker-php-ext-enable --ini-name 20-redis.ini redis
 
-#COPY php.ini /usr/local/etc/php/php.ini
+#  && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
+
+COPY php.ini /usr/local/etc/php/php.ini

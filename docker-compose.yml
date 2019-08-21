@@ -18,6 +18,10 @@ services:
   php:
     build: './php'
     restart: always
+    # Enable XDEBUG
+    # Use your computer's IP address: ifconfig | ipconfig
+    environment:
+      XDEBUG_CONFIG: "remote_host=192.168.1.8"
     volumes:
       - ./volumes/public_html:/usr/local/apache2/htdocs
       - ./volumes/tmp:/usr/local/tmp
@@ -30,6 +34,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: test1234
       MYSQL_DATABASE: test_db
+      TZ: America/New_York
     volumes:
       - ./volumes/database:/var/lib/mysql
 
